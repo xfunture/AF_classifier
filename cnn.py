@@ -19,9 +19,11 @@ def k_f1_score(y_true,y_pred):
 def larger_model(num_classes,shape):
     model = Sequential()
     print('input_shape:{}'.format(shape))
-    model.add(Conv2D(30,(5,5),input_shape=shape,activation='relu'))
+    model.add(Conv2D(128,(5,5),input_shape=shape,activation='relu'))
     model.add(MaxPooling2D(pool_size=(2,2)))
-    model.add(Conv2D(15,(3,3),activation='relu'))
+    model.add(Conv2D(64,(3,3),activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Conv2D(32,(3,3),activation='relu'))
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(Dropout(0.5))
     model.add(Flatten())
@@ -29,6 +31,7 @@ def larger_model(num_classes,shape):
     model.add(Dense(32,activation='relu'))
     model.add(Dense(num_classes,activation='softmax'))
     model.compile(loss='categorical_crossentropy',optimizer = 'adam',metrics=['accuracy'])
+    #model.compile(loss='sparse_categorical_crossentropy',optimizer = 'adam',metrics=['accuracy'])
     return model
 
 """
